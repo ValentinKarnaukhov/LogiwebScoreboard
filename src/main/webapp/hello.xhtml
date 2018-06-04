@@ -4,11 +4,71 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 
-
+<h:head>
+    <h:outputStylesheet library = "css" name = "materialize.css"  />
+    <h:outputStylesheet library = "css" name = "styles.css"  />
+</h:head>
 <h:body>
-    <f:view beforePhase="#{scoreboardController.init}"/>
-    TEST
+    <div class="nav-wrapper blue-grey z-depth-2" style="height: 50px; margin-bottom: 2%">
+        <a href="#" class="brand-logo driver-logo white-text" style="font-size: xx-large">L O G I W E B</a>
+    </div>
+    <div style="margin-left: 2%; margin-right: 2%">
+        <f:view>
+            <h:form id="form">
+                <h:dataTable id = "orders" value="#{scoreboardController.jsonResponse.rows}" var="order" styleClass="centered bordered highlight card-panel">
+                    <h:column>
+                        <f:facet name="header">NUMBER</f:facet>
+                        #{order.number}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">FROM</f:facet>
+                        #{order.cityFrom}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">TO</f:facet>
+                        #{order.cituTo}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">CARGOES</f:facet>
+                        #{order.cargoes}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">TRUCK</f:facet>
+                        #{order.truck}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">STATUS</f:facet>
+                        #{order.status}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">DRIVERS</f:facet>
+                        <ui:repeat value="#{order.drivers}" var="driver">
+                            #{driver}<br/>
+                        </ui:repeat>
+                    </h:column>
+                </h:dataTable>
+                <div>
+                    Drivers:<h:outputText value="#{scoreboardController.jsonResponse.driversTotal}"/>/
+                    <h:outputText value="#{scoreboardController.jsonResponse.driversTotal-scoreboardController.jsonResponse.driversBusy}"/>/
+                    <h:outputText value="#{scoreboardController.jsonResponse.driversBusy}"/>
+                </div>
+                <p:poll interval="4" update="form" async="true"/>
+            </h:form>
+
+        </f:view>
+    </div>
+
 </h:body>
+<h:outputScript library="js" name="jquery-2.1.1.min.js"/>
+<h:outputScript library="js" name="jquery.autocomplete.js"/>
+<h:outputScript library="js" name="materialize.min.js"/>
 </html>

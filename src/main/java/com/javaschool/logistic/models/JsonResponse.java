@@ -14,6 +14,9 @@ public class JsonResponse implements Serializable {
     private int trucksOrder;
     private int trucksBroken;
 
+    public JsonResponse() {
+    }
+
     public List<ScoreboardRow> getRows() {
         return rows;
     }
@@ -60,5 +63,18 @@ public class JsonResponse implements Serializable {
 
     public void setTrucksBroken(int trucksBroken) {
         this.trucksBroken = trucksBroken;
+    }
+
+
+    @Override
+    public String toString() {
+        return "JsonResponse{" +
+                "rows=" + rows +
+                ", driversTotal=" + driversTotal +
+                ", driversBusy=" + driversBusy +
+                ", trucksTotal=" + trucksTotal +
+                ", trucksOrder=" + trucksOrder +
+                ", trucksBroken=" + trucksBroken +
+                '}';
     }
 }

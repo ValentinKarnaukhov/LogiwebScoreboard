@@ -3,9 +3,10 @@ package com.javaschool.logistic.ejb;
 
 
 
+import com.javaschool.logistic.models.JsonResponse;
+
 import javax.ejb.Stateful;
 import javax.ws.rs.client.*;
-import javax.ws.rs.core.Response;
 
 import java.io.Serializable;
 
@@ -15,20 +16,13 @@ public class ScoreboardBean implements Serializable {
 
     private Client client = ClientBuilder.newClient();
 
-
-    public String sayHello() {
-
+    public JsonResponse getActualInformation() {
+        System.out.println("QUERY");
         String uri = "http://localhost:8081/test";
         WebTarget target = client.target(uri);
-        Response response = target.request()
-                .get();
-        response.close();
-        return "TEST";
-
+        return target.request()
+                .get(JsonResponse.class);
     }
-
-
-
 
 
 }

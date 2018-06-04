@@ -1,30 +1,31 @@
 package com.javaschool.logistic.jsf;
 
 
-import com.javaschool.logistic.ejb.ReceiverBean;
-import com.javaschool.logistic.ejb.ScoreboardBean;
+
+import com.javaschool.logistic.ejb.InformationBean;
 import com.javaschool.logistic.models.JsonResponse;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.event.PhaseEvent;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
+import javax.faces.bean.SessionScoped;
+
+import java.io.Serializable;
+
+
 
 @ManagedBean
-public class ScoreboardController {
+@SessionScoped
+public class ScoreboardController implements Serializable {
 
-    private JsonResponse jsonResponse;
-
-    @EJB
-    private ScoreboardBean scoreboardBean;
 
     @EJB
-    private ReceiverBean receiverBean;
+    private InformationBean informationBean;
 
-    public void init(PhaseEvent event) throws IOException, TimeoutException {
-        receiverBean.receive();
+
+    public JsonResponse getJsonResponse() {
+        return informationBean.getJsonResponse();
     }
+
 
 
 }
