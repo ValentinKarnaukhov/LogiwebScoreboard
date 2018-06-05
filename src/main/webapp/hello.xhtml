@@ -56,10 +56,45 @@
                         </ui:repeat>
                     </h:column>
                 </h:dataTable>
-                <div>
-                    Drivers:<h:outputText value="#{scoreboardController.jsonResponse.driversTotal}"/>/
-                    <h:outputText value="#{scoreboardController.jsonResponse.driversTotal-scoreboardController.jsonResponse.driversBusy}"/>/
-                    <h:outputText value="#{scoreboardController.jsonResponse.driversBusy}"/>
+                <div style="display: flex">
+                    <table class="centered bordered highlight card-panel" style="float: left; margin-right: 5%">
+                        <thead>
+                            <tr>
+                                <th>DRIVERS</th>
+                                <th>AVAILBLE / UNAVAILBLE / TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td style="letter-spacing: 25px">
+                                    <h:outputText value="#{scoreboardController.jsonResponse.driversTotal-scoreboardController.jsonResponse.driversBusy}"/>/
+                                    <h:outputText value="#{scoreboardController.jsonResponse.driversBusy}"/>/
+                                    <h:outputText value="#{scoreboardController.jsonResponse.driversTotal}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="centered bordered highlight card-panel" style="float: right; margin-left: 5%">
+                        <thead>
+                        <tr>
+                            <th>TRUCKS</th>
+                            <th>AVAILBLE / UNAVAILBLE / IN ORDER / BROKEN / TOTAL</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td style="letter-spacing: 25px">
+                                <h:outputText value="#{scoreboardController.jsonResponse.truckAvailable}"/>/
+                                <h:outputText value="#{scoreboardController.jsonResponse.trucksTotal-scoreboardController.jsonResponse.truckAvailable}"/>/
+                                <h:outputText value="#{scoreboardController.jsonResponse.trucksOrder}"/>/
+                                <h:outputText value="#{scoreboardController.jsonResponse.trucksBroken}"/>/
+                                <h:outputText value="#{scoreboardController.jsonResponse.trucksTotal}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <p:poll interval="4" update="form" async="true"/>
             </h:form>

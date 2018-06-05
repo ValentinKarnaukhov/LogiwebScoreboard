@@ -28,7 +28,10 @@ public class ReceiverBean implements Serializable {
     public void receive() throws IOException, TimeoutException {
 
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("localhost");
+        connectionFactory.setHost("206.189.24.66");
+        connectionFactory.setPort(5672);
+        connectionFactory.setUsername("admin");
+        connectionFactory.setPassword("admin");
         connection= connectionFactory.newConnection();
         channel=connection.createChannel();
 

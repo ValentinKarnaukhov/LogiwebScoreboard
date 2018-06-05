@@ -13,6 +13,7 @@ public class JsonResponse implements Serializable {
     private int trucksTotal;
     private int trucksOrder;
     private int trucksBroken;
+    private int truckAvailable;
 
     public JsonResponse() {
     }
@@ -65,6 +66,13 @@ public class JsonResponse implements Serializable {
         this.trucksBroken = trucksBroken;
     }
 
+    public int getTruckAvailable() {
+        return truckAvailable;
+    }
+
+    public void setTruckAvailable(int truckAvailable) {
+        this.truckAvailable = truckAvailable;
+    }
 
     @Override
     public String toString() {
@@ -77,4 +85,6 @@ public class JsonResponse implements Serializable {
                 ", trucksBroken=" + trucksBroken +
                 '}';
     }
+
+
 }

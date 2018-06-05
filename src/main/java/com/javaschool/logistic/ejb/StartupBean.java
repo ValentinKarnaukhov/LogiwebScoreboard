@@ -18,6 +18,7 @@ public class StartupBean {
     @EJB
     private ReceiverBean receiverBean;
 
+
     @PostConstruct
     public void start() throws IOException, TimeoutException {
         informationBean.update();
