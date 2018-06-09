@@ -1,29 +1,29 @@
-package com.javaschool.logistic.ejb;
+package com.javaschool.logistic.beans;
 
 
 import com.rabbitmq.client.*;
 
-import javax.annotation.PostConstruct;
+
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
-import javax.ejb.Startup;
-import javax.ejb.Stateful;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.TimeoutException;
 
 
-@Stateful
-@Startup
-public class ReceiverBean implements Serializable {
+@Singleton
+public class ListenerBean implements Serializable {
 
     private final static String QUEUE_NAME="infoQueue";
 
     private Connection connection;
     private Channel channel;
 
-    @EJB
-    private InformationBean informationBean;
+    @Inject
+    private BeanManager beanManager;
 
     public void receive() throws IOException, TimeoutException {
 
@@ -40,16 +40,19 @@ public class ReceiverBean implements Serializable {
         channel.basicRecover();
         channel.queuePurge(QUEUE_NAME);
 
-        final Consumer consumer=new DefaultConsumer(channel){
+        final Consumer consumer = new DefaultConsumer(channel){
+
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
-                System.out.println(message);
-                informationBean.update();
+                System.out.println("handelDelivery");
+                beanManager.fireEvent(message);
             }
         };
+
         channel.basicConsume(QUEUE_NAME,true,consumer);
     }
+
 
     @PreDestroy
     public void destroy() throws IOException, TimeoutException {
